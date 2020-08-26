@@ -105,7 +105,7 @@
           <iron-icon slot="prefix" icon="lock-outline"></iron-icon>
         </paper-input>
         <paper-checkbox>Remember me</paper-checkbox>
-        <paper-button>LOGIN</paper-button>
+        <paper-button on-click="access">LOGIN</paper-button>
       </paper-card>
     </div>
   </template>
@@ -135,13 +135,12 @@
           },
           show: {
             type: Boolean,
-            value: false,
-            observer: '_showComponent'
+            value: false
           }
         };
       }
 
-      _showComponent(){
+      access(){
         if(this.show){
           this.style.display = 'block';
         }else{
