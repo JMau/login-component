@@ -1,13 +1,101 @@
 <link rel="import" href="../polymer/polymer-element.html">
+<link rel="import" href="../paper-card/paper-card.html">
+<link rel="import" href="../paper-input/paper-input.html">
+<link rel="import" href="../paper-button/paper-button.html">
+<link rel="import" href="../iron-icon/iron-icon.html">
+<link rel="import" href="../iron-icons/iron-icons.html">
+<link rel="import" href="../paper-checkbox/paper-checkbox.html">
 
 <dom-module id="login-component">
   <template>
     <style>
       :host {
         display: block;
+        width: 100%;
+        @apply --login-component;
+      }
+      paper-card {
+        --paper-card-background-color: white;
+        --paper-card: {
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          align-items: center;
+          border-style: solid;
+          border-width: .4rem 0.6rem 0 .3rem;
+          border-color: transparent;
+          border-image: linear-gradient(180deg, rgba(230,42,230,1) 30%, rgba(95,12,227,1) 100%) 1;
+          padding: 3.5rem 2rem 1.8rem 2rem;
+        };
+        --paper-card-header: {
+          margin-bottom: 1.5rem;
+        };
+        --paper-card-header-text: {
+          font-size: 1.6rem;
+          font-weight: bolder;
+          color: black;
+        };
+        @apply --login-component-paper-card;
+      }
+      paper-input {
+        margin-bottom: 1.5rem;
+        width: 100%;
+        --paper-input-container: {
+          padding: 20px;
+          background-color: rgb(228, 228, 228);
+        };
+        --paper-input-container-underline: {
+          display: none;
+        };
+        --paper-input-container-underline-focus: {
+          display: none;
+        };
+        --paper-input-container-label: {
+          font-size: 1rem;
+        };
+        --paper-input-container-input-color: black;
+        @apply --login-component-paper-input;
+      }
+      iron-icon {
+        --iron-icon: {
+          margin-right: 15px;
+        };
+        --iron-icon-fill-color: rgb(180, 180, 180);
+        @apply login-component-iron-icon;
+      }
+      paper-checkbox {
+        width: 100%;
+        margin-bottom: 1.5rem;
+        --paper-checkbox-unchecked-color:  rgb(150, 150, 150);
+        --paper-checkbox-label-color: rgb(150, 150, 150);
+        --paper-checkbox-checkmark-color: magenta;
+        --paper-checkbox-checked-color: white;
+        @apply login-component-paper-checkbox;
+      }
+      paper-button{
+        --paper-button: {
+          background-color: magenta;
+          font-size: 1rem;
+          font-weight: bolder;
+          color: white;
+          width: 100%;
+          height: 60px;
+        }
+        @apply login-component-paper-button;
       }
     </style>
-    <h2>Hello [[prop1]]!</h2>
+    
+    <paper-card heading="LOGIN">
+      <paper-input label="Email" no-label-float="true" value="{{email}}">
+        <iron-icon slot="prefix" icon="mail"></iron-icon>
+      </paper-input>
+      <paper-input label="........" no-label-float="true" type="password" value="{{password}}">
+        <iron-icon slot="prefix" icon="lock-outline"></iron-icon>
+      </paper-input>
+      <paper-checkbox>Remember me</paper-checkbox>
+      <paper-button>LOGIN</paper-button>
+    </paper-card>
+    <span>{{isLogin}}</span>
   </template>
 
   <script>
@@ -23,11 +111,30 @@
       static get is() { return 'login-component'; }
       static get properties() {
         return {
-          prop1: {
+          email: {
             type: String,
-            value: 'login-component'
+            value: '',
+            notify: true
+          },
+          password: {
+            type: String,
+            value: '',
+            notify: true
+          },
+          show: {
+            type: Boolean,
+            value: false,
+            observer: '_showComponent'
           }
         };
+      }
+
+      _showComponent(){
+        if(this.show){
+          this.style.display = 'block';
+        }else{
+          this.style.display = 'none';
+        }
       }
     }
 
